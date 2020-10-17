@@ -24,6 +24,23 @@ Resources:
     Properties:
       ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", HVM64]
       InstanceType: !Ref InstanceTypeParameter
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: "Groupe de Sécu basique pour accéder à l'EC2v via http"
+      GroupName: "GSG9"
+      SecurityGroupEgress:
+        -IpProtocol: tcp
+        FromPort: 80
+        ToPort: 80
+        CidrIp: 0.0.0.0/0
+      SecurityGroupIngress:
+        -IpProtocol: tcp
+        FromPort: 80
+        ToPort: 80
+        CidrIp: 0.0.0.0/0
+      VpcId:
+        Ref: myVPC
+
 
 Outputs:
   InstanceID:
